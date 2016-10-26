@@ -6,6 +6,6 @@
  * Time: 9:14 AM
  */
 
-echo $test;
+print_r($test) ;
 
 ?>
