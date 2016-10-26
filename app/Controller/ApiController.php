@@ -44,5 +44,20 @@ class ApiController extends AppController {
 		$this->set('test', $getapidata);
 	}
 
+	public function library($id=null){
+
+		//GET Request
+		if($this->request->is('get') && $id != null){
+			$checkid = $this->Api->find('first', array(
+				'conditions' => array(
+					'id' => $id
+				)
+			));
+
+			$this->set('check_response', $checkid);
+		}
+
+	}
+
 
 }
