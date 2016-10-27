@@ -5,7 +5,7 @@ body {margin:0; padding: 0;}
 #header h1 {color: white; padding-top:30px; padding-left:15px;}
 
 .row {padding-top:20px; padding-bottom: 20px; word-wrap: break-word;}
-.row:nth-child(odd) {background: #e0e0e0;}
+.row:nth-child(odd) {background: #e2e2e2;}
 .row:nth-child(even) {background: #eeeeee;}
 .headings {color: #49075e;}
 
