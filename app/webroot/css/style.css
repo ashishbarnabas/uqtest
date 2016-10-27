@@ -1,0 +1,17 @@
+body {margin:0; padding: 0;}
+#content {width:960px; margin:0 auto; margin-bottom: 20px;}
+
+#header {background-color: #49075e; height:100px;}
+#header h1 {color: white; padding-top:30px; padding-left:15px;}
+
+.row {padding-top:20px; padding-bottom: 20px; word-wrap: break-word;}
+.row:nth-child(odd) {background: #e0e0e0;}
+.row:nth-child(even) {background: #eeeeee;}
+.headings {color: #49075e;}
+
+#footer {height:50px; background-color: #49075e; text-align: center; padding-top:15px;}
+#footer small {color: white;}
+
+@media screen and (max-width: 990px) {
+    #content {width:calc(100% - 30px);}
+}
