@@ -38,6 +38,24 @@ class Api extends Model {
                 'rule' => array('notEmpty'),
                 'message' => 'Please enter code'
             )
+        ),
+        'name' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Please enter name'
+            )
+        ),
+        'abbr' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Please enter abbreviation'
+            )
+        ),
+        'url' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Please enter url'
+            )
         )
     );
 }
