@@ -48,7 +48,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>UQTEST</h1>
+			<h1>UQ WEB DEV TEST</h1>
 		</div>
 		<div id="content">
 			<?php echo $this->fetch('content'); ?>
