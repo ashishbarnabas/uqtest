@@ -37,14 +37,21 @@ class ApiController extends AppController {
  */
 	public $uses = array('Api');
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->post_api_key = new POSTAPI();
+		$this->Auth->allow('index', 'library');
+	}
+
 
 	public function index(){
+		$this->autoRender = false;
 		$this->set('title_for_layout', 'UQTEST');
-		$getapidata = $this->Api->find('all');
-		$this->set('test', $getapidata);
 	}
 
 	public function library($id=null){
+
+		$this->set('request_type', 'POST');
 
 		//GET Request
 		if($this->request->is('get') && $id != null){
@@ -53,11 +60,70 @@ class ApiController extends AppController {
 					'id' => $id
 				)
 			));
-
+			$this->set('requested_id', $id);
 			$this->set('check_response', $checkid);
+			$this->set('request_type', 'GET');
+
+		} else if($this->request->is('post')) {
+
+			$this->autoRender = false;
+			$data = $this->request->data;
+			CakeLog::write('APILog', $data);
+
+			if(!empty($data)){
+				$key = $this->post_api_key->apikey;
+				if($this->validatedata($data)) {
+					$this->request->data['Api']['id'] = $data['id'];
+					$this->request->data['Api']['name'] = $data['name'];
+					$this->request->data['Api']['abbr'] = $data['abbr'];
+					$this->request->data['Api']['code'] = $data['code'];
+					$this->request->data['Api']['url'] = $data['url'];
+					if ($this->Api->save($this->request->data)) {
+						return 'Data successfully saved';
+					}
+				} else {
+					return 'Invalid Data';
+				}
+			}
 		}
 
 	}
 
+	public function validatedata($data){
+		$validateid = false;
+		$validatecode = false;
+		$validatename = false;
+		$validateabbr = false;
+		$validateurl = false;
 
+		if(!filter_var($data['id'], FILTER_VALIDATE_INT) === false){
+			$validateid = true;
+		}
+
+		if(is_string($data['name'])){
+			$validatename = true;
+		}
+
+		if(is_string($data['abbr'])){
+			$validateabbr = true;
+		}
+
+		if(!filter_var($data['url'], FILTER_VALIDATE_URL) === false) {
+			$validateurl = true;
+		}
+
+		if((is_string($data['code'])) && (strlen($data['code']) == 6)){
+			$code[0] = substr($data['code'], 0, 3);
+			$code[1] = substr($data['code'], 3);
+			if(ctype_alpha($code[0]) && ctype_digit ($code[1])){
+				$validatecode = true;
+			}
+		}
+
+		if($validateid && $validatecode && $validateabbr && $validatename && $validateurl){
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
